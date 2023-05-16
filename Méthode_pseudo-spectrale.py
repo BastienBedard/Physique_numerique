@@ -386,13 +386,13 @@ def graphique_2D(par,fig, solution, dens_prob,potentiel, iter, norm):
     plt.tick_params(direction='in')
     plt.xlabel('$%s$' %r'x [m]')
     plt.ylabel('$%s$' %r'y [m]')
-    # plt.xticks([0, par.nb/4, par.nb/2, 3*par.nb/4, par.nb],
-    #                    ['$%s$' %r'-a_0', '$%s$' %r'\frac{-a_0}{2}', 0,
-    #                    '$%s$' %r'\frac{a_0}{2}', '$%s$' %r'a_0'])
-    # plt.yticks([0, par.nb/4, par.nb/2, 3*par.nb/4, par.nb],
-    #                 ['$%s$' %r'-a_0', '$%s$' %r'\frac{-a_0}{2}', 0,
-    #                    '$%s$' %r'\frac{a_0}{2}', '$%s$' %r'a_0'])
-    # plt.tick_params(pad = 7)
+    plt.xticks([0, par.nb/4, par.nb/2, 3*par.nb/4, par.nb],
+                       ['$%s$' %r'-a_0', '$%s$' %r'\frac{-a_0}{2}', 0,
+                       '$%s$' %r'\frac{a_0}{2}', '$%s$' %r'a_0'])
+    plt.yticks([0, par.nb/4, par.nb/2, 3*par.nb/4, par.nb],
+                    ['$%s$' %r'-a_0', '$%s$' %r'\frac{-a_0}{2}', 0,
+                       '$%s$' %r'\frac{a_0}{2}', '$%s$' %r'a_0'])
+    plt.tick_params(pad = 7)
     norm = mcolors.Normalize(vmin=0, vmax=1)
     scalar_map = plt.cm.ScalarMappable(norm=norm, cmap=mymap)
     cax = [0.0, 0.2, 0.4, 0.4, 0.6, 0.8, 1.0]
