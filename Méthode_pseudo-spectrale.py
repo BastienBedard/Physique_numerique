@@ -87,18 +87,18 @@ def potentiel_param(par=Param(), nom_pot='potentiel nul', prop=0, boite=False,
                     hmax=1, hmin=0):
     """ Calcule les ordres de grandeur voulu 
                             pour le pas de temps et le potentiel """
+    # Calcul de l'ordre de grandeur adéquat du pas de temps
+    ordre_t = cte.hbar * np.max(par.k**2) / (0.2 * cte.m_e * par.nb)
+    
+    # Calcul de l'ordre de grandeur adéquat du potentiel
+    ordre_v = cte.hbar*ordre_t*hmax
+    
     # Initialisation de différents potentiels
     pot_nul, pot_const = np.zeros(par.nb), np.ones(par.nb)
     pot_quad = par.x**2*3e20/ordre_v
     pot_marche = np.round(np.linspace(0, 0.8, par.nb))
     pot_carre = np.round(np.abs(np.linspace(-1, 1, par.nb)))
     pot_bar = np.round(np.abs(np.linspace(-1, 1, par.nb))-0.503)*-1
-
-    # Calcul de l'ordre de grandeur adéquat du pas de temps
-    ordre_t = cte.hbar * np.max(par.k**2) / (0.2 * cte.m_e * par.nb)
-    
-    # Calcul de l'ordre de grandeur adéquat du potentiel
-    ordre_v = cte.hbar*ordre_t*hmax
 
     # Dictionnaire des array pour certains potentiels
     dict_potentiel = {'potentiel nul': pot_nul,
@@ -257,7 +257,7 @@ if False:
     dt, potentiel, par.k0, par.x0, par.precision, ordre_v = potentiel_param(par, 
                                         'potentiel carre', prop=5, boite=False)
     par.dt=1/dt
-    graph_test(par, 100, potentiel*1e20)
+    graph_test(par, 1, potentiel*1e20)
 
 """Un exemple création de vidéo est visible ici si le False est remplacé par True."""
 
@@ -541,7 +541,7 @@ if False:
     pary.largeur *= 1.8
     parx.x0 -= parx.xmax/13
     pary.x0 -= pary.xmax/2.5
-    graph_test_2D(parx, pary, potentielx*300, potentiely, frame = 20)
+    graph_test_2D(parx, pary, potentielx*300, potentiely, step = 20)
 
 # Graphique de calibration pour un potentiel circulaire sans propagation
 if False: 
@@ -560,7 +560,7 @@ if False:
     mat_nbx, mat_nby = np.meshgrid(list_nbx, list_nby)
     potentiel = np.round(np.sqrt(mat_nbx**2+mat_nby**2)-0.45)*ordre_v*1e100
     potentiely = 0
-    graph_test_2D(parx, pary, potentiel, potentiely, frame = 1)
+    graph_test_2D(parx, pary, potentiel, potentiely, step = 1)
 
 # Graphique de calibration pour un potentiel circulaire avec propagation
 if False: 
@@ -579,7 +579,7 @@ if False:
     mat_nbx, mat_nby = np.meshgrid(list_nbx, list_nby)
     potentiel = np.round(np.sqrt(mat_nbx**2+mat_nby**2)-0.45)*ordre_v*1e300
     potentiely = 0
-    graph_test_2D(parx, pary, potentiel, potentiely, frame = 150)
+    graph_test_2D(parx, pary, potentiel, potentiely, step = 150)
 
 # Graphique de calibration pour un potentiel quelconque 
 #                                           calculé à partir d'une image
@@ -600,7 +600,7 @@ if False:
     pary.x0 += pary.xmax/12
     potentiel = mat*ordre_v*1e300
     potentiely = 0
-    graph_test_2D(parx, pary, potentiel, potentiely, frame = 1)
+    graph_test_2D(parx, pary, potentiel, potentiely, step = 1)
 
 """Un exemple de création d'une vidéo pour un potentiel circulaire 2D est visible ici si le False est remplacé par True."""
 
@@ -620,5 +620,5 @@ if False:
     mat_nbx, mat_nby = np.meshgrid(list_nbx, list_nby)
     potentiel = np.round(np.sqrt(mat_nbx**2+mat_nby**2)-0.45)*ordre_v*1e300
     potentiely = 0
-    video_simulation2D(parx, pary, potentiel, potentiely, frame = 400,
+    video_simulation2D(parx, pary, potentiel, potentiely, allframe = 400,
                                 fps=25, file_name='Simulation_2D_cercle_prop')
